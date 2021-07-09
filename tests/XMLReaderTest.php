@@ -27,9 +27,9 @@ it(
         expect($obj)->toBeInstanceOf(\Mattlake\XMLElement::class);
         expect($obj->tag())->toBe('Customer');
         expect($obj->children())->toBeArray();
-        expect($obj->children()['Name'])->toBeInstanceOf(\Mattlake\XMLElement::class);
-        expect($obj->children()['Name']->tag())->toBe('Name');
-        expect($obj->children()['Name']->value())->toBe('Matt');
+        expect($obj->Name)->toBeInstanceOf(\Mattlake\XMLElement::class);
+        expect($obj->Name->tag())->toBe('Name');
+        expect($obj->Name->value())->toBe('Matt');
     }
 );
 
@@ -42,12 +42,12 @@ it(
         expect($obj)->toBeInstanceOf(\Mattlake\XMLElement::class);
         expect($obj->tag())->toBe('Customer');
         expect($obj->children())->toBeArray();
-        expect($obj->children()['Name'])->toBeInstanceOf(\Mattlake\XMLElement::class);
-        expect($obj->children()['Name']->tag())->toBe('Name');
-        expect($obj->children()['Name']->value())->toBe('Matt');
-        expect($obj->children()['Age'])->toBeInstanceOf(\Mattlake\XMLElement::class);
-        expect($obj->children()['Age']->tag())->toBe('Age');
-        expect($obj->children()['Age']->value())->toBe('37');
+        expect($obj->Name)->toBeInstanceOf(\Mattlake\XMLElement::class);
+        expect($obj->Name->tag())->toBe('Name');
+        expect($obj->Name->value())->toBe('Matt');
+        expect($obj->Age)->toBeInstanceOf(\Mattlake\XMLElement::class);
+        expect($obj->Age->tag())->toBe('Age');
+        expect($obj->Age->value())->toBe('37');
     }
 );
 
@@ -60,10 +60,10 @@ it(
         expect($obj)->toBeInstanceOf(\Mattlake\XMLElement::class);
         expect($obj->tag())->toBe('Account');
         expect($obj->children())->toBeArray();
-        expect($obj->children()['Customer'])->toBeInstanceOf(\Mattlake\XMLElement::class);
-        expect($obj->children()['Customer']->tag())->toBe('Customer');
-        expect($obj->children()['Customer']->children()['Name'])->toBeInstanceOf(\Mattlake\XMLElement::class);
-        expect($obj->children()['Customer']->children()['Name']->tag())->toBe('Name');
-        expect($obj->children()['Customer']->children()['Name']->value())->toBe('Matt');
+        expect($obj->Customer)->toBeInstanceOf(\Mattlake\XMLElement::class);
+        expect($obj->Customer->tag())->toBe('Customer');
+        expect($obj->Customer->Name)->toBeInstanceOf(\Mattlake\XMLElement::class);
+        expect($obj->Customer->Name->tag())->toBe('Name');
+        expect($obj->Customer->Name->value())->toBe('Matt');
     }
 );

@@ -2,6 +2,8 @@
 
 namespace Mattlake;
 
+use InvalidArgumentException;
+
 class XMLElement
 {
     private ?string $namespace = null;
@@ -62,5 +64,14 @@ class XMLElement
     public function children(): array
     {
         return $this->children;
+    }
+
+    public function __get($key)
+    {
+        if (array_key_exists($key, $this->children)) {
+            return $this->children[$key];
+        }
+
+        throw new InvalidArgumentException("Child element $key not found");
     }
 }

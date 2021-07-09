@@ -58,7 +58,7 @@ it(
         $child->setTag('Test');
         $parent->addChild($child);
         expect($parent->children())->toBeArray();
-        expect($parent->children()['Test'])->toBeInstanceOf(XMLElement::class);
+        expect($parent->Test)->toBeInstanceOf(XMLElement::class);
     }
 );
 
@@ -72,3 +72,26 @@ it(
         expect($el->value())->toBe('Test');
     }
 );
+
+it('can retrieve children using magic methods', function () {
+    $el = new XMLElement();
+    $el->setTag('Parent');
+
+    expect($el->children())->toBeArray()->toBeEmpty();
+
+    $child = new XMLElement();
+    $child->setTag('Child');
+
+    $el->addChild($child);
+
+    expect($el->Child)->toBeInstanceOf(XMLElement::class);
+});
+
+it('throws an InvalidArgumentException if there is no child that matches the key', function () {
+    $el = new XMLElement();
+    $el->setTag('Parent');
+
+    expect($el->children())->toBeArray()->toBeEmpty();
+
+    expect($el->Child)->toBeInstanceOf(XMLElement::class);
+})->throws(InvalidArgumentException::class);
