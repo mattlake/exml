@@ -1,10 +1,8 @@
 <?php
 
-require_once __DIR__ . '/XMLAttribute.php';
-require_once __DIR__ . '/XMLElement.php';
-require_once __DIR__ . '/XMLReader.php';
-require_once __DIR__ . '/ContentDTO.php';
-require_once __DIR__ . '/ContentDTOFactory.php';
+require_once __DIR__ . '/vendor/autoload.php';
+
+use MattLake\XMLReader\XMLReader;
 
 $xml = htmlentities(
     '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
@@ -47,8 +45,4 @@ $xml = htmlentities(
 </soap:Envelope>'
 );
 
-$simpleXML = '<Account><Customer><Name>Matt</Name></Customer></Account>';
-
-var_dump(Mattlake\XMLReader::readXML($simpleXML));
-
-
+var_dump(XMLReader::readXML($xml));

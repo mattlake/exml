@@ -1,6 +1,6 @@
 <?php
 
-namespace Mattlake;
+namespace MattLake\XMLReader;
 
 use InvalidArgumentException;
 

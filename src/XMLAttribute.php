@@ -1,5 +1,6 @@
 <?php
-namespace Mattlake;
+
+namespace MattLake\XMLReader;
 
 
 class XMLAttribute

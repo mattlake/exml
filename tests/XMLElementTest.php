@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../XMLElement.php';
+namespace MattLake\XMLReader\Tests;
 
-use Mattlake\XMLAttribute;
-use Mattlake\XMLElement;
+use MattLake\XMLReader\XMLAttribute;
+use MattLake\XMLReader\XMLElement;
 
 it(
     'can be instantiated',
@@ -94,4 +94,4 @@ it('throws an InvalidArgumentException if there is no child that matches the key
     expect($el->children())->toBeArray()->toBeEmpty();
 
     expect($el->Child)->toBeInstanceOf(XMLElement::class);
-})->throws(InvalidArgumentException::class);
+})->throws(\InvalidArgumentException::class);

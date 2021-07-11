@@ -1,10 +1,9 @@
 <?php
 
-use Mattlake\ContentDTO;
-use Mattlake\ContentDTOFactory;
+namespace MattLake\XMLReader\Tests;
 
-require_once __DIR__ . '/../ContentDTO.php';
-require_once __DIR__ . '/../ContentDTOFactory.php';
+use MattLake\XMLReader\ContentDTO;
+use MattLake\XMLReader\ContentDTOFactory;
 
 it(
     'can instantiate a DTO with a simple valid string',

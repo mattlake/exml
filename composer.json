@@ -1,5 +1,34 @@
 {
+    "name": "mattlake/xmlreader",
+    "description": "A simple XML reader that converts markup to objects",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+      {
+        "role": "Developer",
+        "name": "Matthew Lake",
+        "email": "dev@matthewlake.co.uk",
+        "homepage": "https://www.matthewlake.co.uk/"
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "MattLake\\XMLReader\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "MattLake\\XMLReader\\Tests\\": "src/"
+      }
+    },
+    "require": {
+      "php": "^8.0"
+    },
     "require-dev": {
-        "pestphp/pest": "^1.8"
+      "pestphp/pest": "^1.8"
+    },
+    "prefer-stable": true,
+    "config": {
+      "optimize-autoloader": true
     }
-}
+  }

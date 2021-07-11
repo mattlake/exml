@@ -1,6 +1,6 @@
 <?php
 
-namespace Mattlake;
+namespace MattLake\XMLReader;
 
 class ContentDTO
 {
@@ -8,7 +8,8 @@ class ContentDTO
         private string $tag,
         private ?string $attributes = null,
         private ?string $content = null,
-    ) {}
+    ) {
+    }
 
     public function tag(): string
     {
