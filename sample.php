@@ -8,44 +8,20 @@ $xml =
     '<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     <soap:Body>
-        <PlaceOrdersResponse xmlns="http://ws.bbtrack.com/OrderInterface/">
-            <PlaceOrdersResult>
-                <OrderResponseType>
-                    <Version>V3</Version>
-                    <CustomerInformation>
-                        <Name>string</Name>
-                        <ReferralCode>string</ReferralCode>
-                        <Password>string</Password>
-                    </CustomerInformation>
-                    <Reference>string</Reference>
-                    <OrderDate>dateTime</OrderDate>
-                    <CRD>dateTime</CRD>
-                    <Status>string</Status>
-                    <Information>
-                        <Message xsi:nil="true" />
-                    </Information>
-                </OrderResponseType>
-                <OrderResponseType>
-                    <Version>string</Version>
-                    <CustomerInformation>
-                        <Name>string</Name>
-                        <ReferralCode>string</ReferralCode>
-                        <Password>string</Password>
-                    </CustomerInformation>
-                    <Reference>string</Reference>
-                    <OrderDate>dateTime</OrderDate>
-                    <CRD>dateTime</CRD>
-                    <Status>string</Status>
-                    <Information>
-                        <Message xsi:nil="true" />
-                    </Information>
-                </OrderResponseType>
-            </PlaceOrdersResult>
-        </PlaceOrdersResponse>
+        <github:Repo>
+            <RepoName>Exml</RepoName>
+            <UserInformation>
+                <Name>Matt Lake</Name>
+                <Role>Developer</Role>
+            </UserInformation>
+            <Url>https://github.com/mattlake/exml</Url>
+            <Status>Public</Status>
+        </github:Repo>
     </soap:Body>
-</soap:Envelope>'
-;
+</soap:Envelope>';
 
-var_dump(Exml::read($xml));
 
-//print_r(simplexml_load_string($xml));
+$obj = Exml::read($xml);
+
+// Echo out the username
+echo $obj->Body->Repo->UserInformation->Name->value();
