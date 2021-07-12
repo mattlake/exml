@@ -4,8 +4,8 @@ namespace Domattr\Exml;
 
 class Attribute
 {
-    private string $key;
-    private string $value;
+    private string $key = '';
+    private string $value = '';
 
     public function __construct(string $attr)
     {

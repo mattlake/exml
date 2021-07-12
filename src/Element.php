@@ -97,7 +97,7 @@ class Element
         return $this;
     }
 
-    private function processTag(string $rawTag): array
+    protected function processTag(string $rawTag): array
     {
         $element = explode(':', $rawTag);
         if (count($element) > 1) {
@@ -108,5 +108,29 @@ class Element
         $tag = $element[0];
         $namespace = null;
         return ['tag' => $tag, 'namespace' => $namespace];
+    }
+
+    protected function openingTag(): string
+    {
+        $tag = $this->tag();
+        if (!is_null($this->namespace)) {
+            $tag = $this->namespace . ':' . $this->tag();
+        }
+
+        foreach ($this->attributes() as $attr) {
+            $tag .= $attr->key() . '="' . $attr->value() . '"';
+        }
+
+        return "<$tag>";
+    }
+
+    protected function closingTag(): string
+    {
+        $tag = $this->tag();
+        if (!is_null($this->namespace)) {
+            $tag = $this->namespace . ':' . $this->tag();
+        }
+
+        return "</$tag>";
     }
 }

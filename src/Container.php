@@ -4,8 +4,8 @@ namespace Domattr\Exml;
 
 class Container extends Element
 {
-    private string $version;
-    private string $encoding;
+    private string $version = "1.0";
+    private string $encoding = "utf-8";
 
     public function setVersion(string $version): self
     {
@@ -40,7 +40,8 @@ class Container extends Element
     public function toXML(): string
     {
         $str = '<?xml version="' . $this->version() . '" encoding="' . $this->encoding() . '"?>';
-
+        $str .= $this->openingTag();
+        $str .= $this->closingTag();
         return $str;
     }
 }
