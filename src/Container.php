@@ -7,13 +7,6 @@ class Container extends Element
     private string $version;
     private string $encoding;
 
-
-    public function __construct(ContentDTO $dto)
-    {
-        $this->version = $dto->headers()['version'] ?? "1.0";
-        $this->encoding = $dto->headers()['encoding'] ?? "utf-8";
-    }
-
     public function setVersion(string $version): self
     {
         $this->version = $version;
@@ -34,5 +27,20 @@ class Container extends Element
     public function encoding(): string
     {
         return $this->encoding;
+    }
+
+    public function hydrate(ContentDTO $dto): self
+    {
+        $this->version = $dto->headers()['version'] ?? "1.0";
+        $this->encoding = $dto->headers()['encoding'] ?? "utf-8";
+
+        return parent::hydrate($dto);
+    }
+
+    public function toXML(): string
+    {
+        $str = '<?xml version="' . $this->version() . '" encoding="' . $this->encoding() . '"?>';
+
+        return $str;
     }
 }

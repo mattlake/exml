@@ -31,7 +31,7 @@ class Exml
         // Create root element
         $rootDTO = ContentDTOFactory::create($xml);
 
-        if(!is_a($rootDTO,ContentDTO::class)) {
+        if (!is_a($rootDTO, ContentDTO::class)) {
             throw new InvalidArgumentException("No single root element found");
         }
 
@@ -57,7 +57,7 @@ class Exml
     private function createContainer(ContentDTO $dto): Element
     {
         // Create root element
-        $el = new Container($dto);
+        $el = new Container();
         $el->hydrate($dto);
 
         return $el;
