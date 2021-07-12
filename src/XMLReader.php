@@ -28,7 +28,7 @@ class XMLReader
     {
         // Create root element
         $rootDTO = ContentDTOFactory::create($xml);
-        $rootElement = $this->createRootElement($rootDTO);
+        $rootElement = $this->createContainer($rootDTO);
 
         $content = ContentDTOFactory::create($rootDTO->content());
 
@@ -47,10 +47,10 @@ class XMLReader
         return $rootElement;
     }
 
-    private function createRootElement(ContentDTO $dto): XMLElement
+    private function createContainer(ContentDTO $dto): XMLElement
     {
         // Create root element
-        $el = new XMLElement();
+        $el = new XMLContainer();
 
         // Process Tag and Namespace
         $details = $this->processTag($dto->tag());

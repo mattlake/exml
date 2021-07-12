@@ -4,8 +4,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Domattr\XMLReader\XMLReader;
 
-$xml = htmlentities(
-    '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+$xml =
+    '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     <soap:Body>
         <PlaceOrdersResponse xmlns="http://ws.bbtrack.com/OrderInterface/">
             <PlaceOrdersResult>
@@ -43,6 +44,8 @@ $xml = htmlentities(
         </PlaceOrdersResponse>
     </soap:Body>
 </soap:Envelope>'
-);
+;
 
 var_dump(XMLReader::readXML($xml));
+
+//print_r(simplexml_load_string($xml));
