@@ -2,6 +2,8 @@
 
 namespace Domattr\Exml;
 
+use InvalidArgumentException;
+
 class Element
 {
     private ?string $namespace = null;
@@ -57,7 +59,7 @@ class Element
     public function addChild(Element $child): Element
     {
         if (is_null($child->tag()) || empty($child->tag())) {
-            throw new \InvalidArgumentException('Child does not have tag set');
+            throw new InvalidArgumentException('Child does not have tag set');
         }
 
         $this->children[$child->tag()] = $child;

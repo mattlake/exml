@@ -5,6 +5,7 @@ namespace Domattr\Exml;
 class ContentDTOFactory
 {
     private const PATTERN = "/<(?'tag'[a-zA-Z\:]+)(?:\w*>|\s+(?'attributes'.*?)\w*\/?>)(?:(?'contents'.*?)<\/\k<tag>>)?/s";
+    private const HEADER_PATTERN = "/^<\?xml version=\"(?'version'\d\.\d)\"(?:\s+encoding=\"(?'encoding'.*)\")?\?>/";
 
     public static function create(string $xml): array|ContentDTO|string
     {
@@ -15,7 +16,8 @@ class ContentDTOFactory
         }
 
         if (count($matches[0]) == 1) {
-            return new ContentDTO($matches['tag'][0], $matches['attributes'][0], $matches['contents'][0]);
+            preg_match(self::HEADER_PATTERN,$xml,$header_matches);
+            return new ContentDTO($matches['tag'][0], $matches['attributes'][0], $matches['contents'][0], $header_matches);
         }
 
         $dtos = [];

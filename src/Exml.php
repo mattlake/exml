@@ -2,6 +2,8 @@
 
 namespace Domattr\Exml;
 
+use InvalidArgumentException;
+
 class Exml
 {
     private static ?Exml $instance;
@@ -30,7 +32,7 @@ class Exml
         $rootDTO = ContentDTOFactory::create($xml);
 
         if(!is_a($rootDTO,ContentDTO::class)) {
-            throw new \InvalidArgumentException("No single root element found");
+            throw new InvalidArgumentException("No single root element found");
         }
 
         $rootElement = $this->createContainer($rootDTO);
@@ -55,7 +57,7 @@ class Exml
     private function createContainer(ContentDTO $dto): Element
     {
         // Create root element
-        $el = new Container();
+        $el = new Container($dto);
         $el->hydrate($dto);
 
         return $el;

@@ -8,6 +8,7 @@ class ContentDTO
         private string $tag,
         private string $attributes = '',
         private string $content = '',
+        private array $headers = [],
     ) {
     }
 
@@ -24,5 +25,10 @@ class ContentDTO
     public function content(): string
     {
         return $this->content;
+    }
+
+    public function headers():array
+    {
+        return $this->headers;
     }
 }

@@ -7,10 +7,11 @@ class Container extends Element
     private string $version;
     private string $encoding;
 
-    public function __construct(string $version = "1.0", string $encoding = "utf-8")
+
+    public function __construct(ContentDTO $dto)
     {
-        $this->version=$version;
-        $this->encoding=$encoding;
+        $this->version = $dto->headers()['version'] ?? "1.0";
+        $this->encoding = $dto->headers()['encoding'] ?? "utf-8";
     }
 
     public function setVersion(string $version): self
