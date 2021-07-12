@@ -87,11 +87,11 @@ it('can retrieve children using magic methods', function () {
     expect($el->Child)->toBeInstanceOf(XMLElement::class);
 });
 
-it('throws an InvalidArgumentException if there is no child that matches the key', function () {
+it('returns null if there is no matching child element', function () {
     $el = new XMLElement();
     $el->setTag('Parent');
 
     expect($el->children())->toBeArray()->toBeEmpty();
 
-    expect($el->Child)->toBeInstanceOf(XMLElement::class);
-})->throws(\InvalidArgumentException::class);
+    expect($el->Child)->toBeNull();
+});

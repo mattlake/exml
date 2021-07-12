@@ -72,6 +72,6 @@ class XMLElement
             return $this->children[$key];
         }
 
-        throw new InvalidArgumentException("Child element $key not found");
+        return null;
     }
 }
