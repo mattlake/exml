@@ -72,4 +72,34 @@ class XMLElement
 
         return null;
     }
+
+    public function hydrate(ContentDTO $dto):self
+    {
+        // Process Tag and Namespace
+        $details = $this->processTag($dto->tag());
+        $this->setTag($details['tag']);
+        $this->setNamespace($details['namespace']);
+
+        // Add Attributes
+        if (!empty($dto->attributes())) {
+            foreach (explode(' ', $dto->attributes()) as $attr) {
+                $this->addAttribute(new XMLAttribute($attr));
+            }
+        }
+
+        return $this;
+    }
+
+    private function processTag(string $rawTag): array
+    {
+        $element = explode(':', $rawTag);
+        if (count($element) > 1) {
+            $namespace = $element[0];
+            $tag = $element[1];
+            return ['tag' => $tag, 'namespace' => $namespace];
+        }
+        $tag = $element[0];
+        $namespace = null;
+        return ['tag' => $tag, 'namespace' => $namespace];
+    }
 }

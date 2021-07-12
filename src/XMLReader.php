@@ -51,51 +51,16 @@ class XMLReader
     {
         // Create root element
         $el = new XMLContainer();
-
-        // Process Tag and Namespace
-        $details = $this->processTag($dto->tag());
-        $el->setTag($details['tag']);
-        $el->setNamespace($details['namespace']);
-
-        // Add Attributes
-        if (!empty($dto->attributes())) {
-            foreach (explode(' ', $dto->attributes()) as $attr) {
-                $el->addAttribute(new XMLAttribute($attr));
-            }
-        }
+        $el->hydrate($dto);
 
         return $el;
-    }
-
-    private function processTag(string $rawTag): array
-    {
-        $element = explode(':', $rawTag);
-        if (count($element) > 1) {
-            $namespace = $element[0];
-            $tag = $element[1];
-            return ['tag' => $tag, 'namespace' => $namespace];
-        }
-        $tag = $element[0];
-        $namespace = null;
-        return ['tag' => $tag, 'namespace' => $namespace];
     }
 
     private function createElement(ContentDTO $dto): XMLElement
     {
         // Create root element
         $el = new XMLElement();
-
-        // Process Tag and Namespace
-        $details = $this->processTag($dto->tag());
-        $el->setTag($details['tag']);
-        $el->setNamespace($details['namespace']);
-
-        // Add Attributes
-        if (!empty($dto->attributes())) {
-            foreach (explode(' ', $dto->attributes()) as $attr) {
-                $el->addAttribute(new XMLAttribute($attr));
-            }
-        }
+        $el->hydrate($dto);
 
         $content = ContentDTOFactory::create($dto->content());
 
