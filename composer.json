@@ -8,7 +8,7 @@
         "role": "Developer",
         "name": "Matthew Lake",
         "email": "dev@matthewlake.co.uk",
-        "homepage": "https://www.matthewlake.co.uk/"
+        "homepage": "https://github.com/mattlake/exml"
       }
     ],
     "autoload": {
