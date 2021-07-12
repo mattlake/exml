@@ -10,9 +10,10 @@ class Element
     private array $children = [];
     private mixed $value = null;
 
-    public function setTag($tag)
+    public function setTag(string $tag): self
     {
         $this->tag = $tag;
+        return $this;
     }
 
     public function tag(): ?string
@@ -42,7 +43,7 @@ class Element
         return $this->attributes;
     }
 
-    public function setValue($value): self
+    public function setValue(mixed $value): self
     {
         $this->value = $value;
         return $this;
@@ -55,6 +56,10 @@ class Element
 
     public function addChild(Element $child): Element
     {
+        if (is_null($child->tag()) || empty($child->tag())) {
+            throw new \InvalidArgumentException('Child does not have tag set');
+        }
+
         $this->children[$child->tag()] = $child;
         return $child;
     }
@@ -64,7 +69,7 @@ class Element
         return $this->children;
     }
 
-    public function __get($key)
+    public function __get(string $key)
     {
         if (array_key_exists($key, $this->children)) {
             return $this->children[$key];
@@ -73,7 +78,7 @@ class Element
         return null;
     }
 
-    public function hydrate(ContentDTO $dto):self
+    public function hydrate(ContentDTO $dto): self
     {
         // Process Tag and Namespace
         $details = $this->processTag($dto->tag());

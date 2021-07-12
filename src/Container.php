@@ -9,7 +9,8 @@ class Container extends Element
 
     public function __construct(string $version = "1.0", string $encoding = "utf-8")
     {
-        $this->setVersion($version)->setEncoding($encoding);
+        $this->version=$version;
+        $this->encoding=$encoding;
     }
 
     public function setVersion(string $version): self

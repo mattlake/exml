@@ -28,6 +28,11 @@ class Exml
     {
         // Create root element
         $rootDTO = ContentDTOFactory::create($xml);
+
+        if(!is_a($rootDTO,ContentDTO::class)) {
+            throw new \InvalidArgumentException("No single root element found");
+        }
+
         $rootElement = $this->createContainer($rootDTO);
 
         $content = ContentDTOFactory::create($rootDTO->content());

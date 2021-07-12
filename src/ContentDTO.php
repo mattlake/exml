@@ -6,8 +6,8 @@ class ContentDTO
 {
     public function __construct(
         private string $tag,
-        private ?string $attributes = null,
-        private ?string $content = null,
+        private string $attributes = '',
+        private string $content = '',
     ) {
     }
 
@@ -16,12 +16,12 @@ class ContentDTO
         return $this->tag;
     }
 
-    public function attributes(): string|null
+    public function attributes(): string
     {
         return $this->attributes;
     }
 
-    public function content(): string|null
+    public function content(): string
     {
         return $this->content;
     }
