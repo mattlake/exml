@@ -1,30 +1,30 @@
 <?php
 
-namespace Domattr\XMLReader;
+namespace Domattr\Exml;
 
-class XMLReader
+class Exml
 {
-    private static ?XMLReader $instance;
+    private static ?Exml $instance;
 
     private function __construct()
     {
     }
 
-    private static function getInstance(): XMLReader
+    private static function getInstance(): Exml
     {
         if (!isset(self::$instance)) {
-            self::$instance = new XMLReader();
+            self::$instance = new Exml();
         }
 
         return self::$instance;
     }
 
-    public static function readXML($xml): XMLElement
+    public static function read(string $xml): Element
     {
         return self::getInstance()->parseXML($xml);
     }
 
-    private function parseXML(string $xml): XMLElement
+    private function parseXML(string $xml): Element
     {
         // Create root element
         $rootDTO = ContentDTOFactory::create($xml);
@@ -47,19 +47,18 @@ class XMLReader
         return $rootElement;
     }
 
-    private function createContainer(ContentDTO $dto): XMLElement
+    private function createContainer(ContentDTO $dto): Element
     {
         // Create root element
-        $el = new XMLContainer();
+        $el = new Container();
         $el->hydrate($dto);
 
         return $el;
     }
 
-    private function createElement(ContentDTO $dto): XMLElement
+    private function createElement(ContentDTO $dto): Element
     {
-        // Create root element
-        $el = new XMLElement();
+        $el = new Element();
         $el->hydrate($dto);
 
         $content = ContentDTOFactory::create($dto->content());

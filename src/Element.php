@@ -1,8 +1,8 @@
 <?php
 
-namespace Domattr\XMLReader;
+namespace Domattr\Exml;
 
-class XMLElement
+class Element
 {
     private ?string $namespace = null;
     private ?string $tag = null;
@@ -31,7 +31,7 @@ class XMLElement
         return $this->namespace;
     }
 
-    public function addAttribute(XMLAttribute $attribute): self
+    public function addAttribute(Attribute $attribute): self
     {
         $this->attributes[] = $attribute;
         return $this;
@@ -53,7 +53,7 @@ class XMLElement
         return $this->value;
     }
 
-    public function addChild(XMLElement $child): XMLElement
+    public function addChild(Element $child): Element
     {
         $this->children[$child->tag()] = $child;
         return $child;
@@ -83,7 +83,7 @@ class XMLElement
         // Add Attributes
         if (!empty($dto->attributes())) {
             foreach (explode(' ', $dto->attributes()) as $attr) {
-                $this->addAttribute(new XMLAttribute($attr));
+                $this->addAttribute(new Attribute($attr));
             }
         }
 

@@ -1,21 +1,21 @@
 <?php
 
-namespace Domattr\XMLReader\Tests;
+namespace Domattr\Exml\Tests;
 
-use Domattr\XMLReader\XMLAttribute;
-use Domattr\XMLReader\XMLElement;
+use Domattr\Exml\Attribute;
+use Domattr\Exml\Element;
 
 it(
     'can be instantiated',
     function () {
-        expect(new XMLElement())->toBeInstanceOf(XMLElement::class);
+        expect(new Element())->toBeInstanceOf(Element::class);
     }
 );
 
 it(
     'can get and set tag',
     function () {
-        $el = new XMLElement();
+        $el = new Element();
         expect($el->tag())->toBeNull();
 
         $el->setTag('Test');
@@ -26,7 +26,7 @@ it(
 it(
     'can get and set namespace',
     function () {
-        $el = new XMLElement();
+        $el = new Element();
         expect($el->namespace())->toBeNull();
 
         $el->setNamespace('Test');
@@ -37,12 +37,12 @@ it(
 it(
     'can get and set attributes',
     function () {
-        $el = new XMLElement();
+        $el = new Element();
         expect($el->attributes())->toBeArray()->toBeEmpty();
 
-        $el->addAttribute(new XMLAttribute('scope="Test"'));
+        $el->addAttribute(new Attribute('scope="Test"'));
         expect($el->attributes())->toBeArray();
-        expect($el->attributes()[0])->toBeInstanceOf(XMLAttribute::class);
+        expect($el->attributes()[0])->toBeInstanceOf(Attribute::class);
         expect($el->attributes()[0]->key())->toBe('scope');
         expect($el->attributes()[0]->value())->toBe('Test');
     }
@@ -51,21 +51,21 @@ it(
 it(
     'can add and retrieve children elements',
     function () {
-        $parent = new XMLElement();
+        $parent = new Element();
         expect($parent->children())->toBeArray()->toBeEmpty();
 
-        $child = new XMLElement();
+        $child = new Element();
         $child->setTag('Test');
         $parent->addChild($child);
         expect($parent->children())->toBeArray();
-        expect($parent->Test)->toBeInstanceOf(XMLElement::class);
+        expect($parent->Test)->toBeInstanceOf(Element::class);
     }
 );
 
 it(
     'can get and set a value',
     function () {
-        $el = new XMLElement();
+        $el = new Element();
         expect($el->value())->toBeNull();
 
         $el->setValue('Test');
@@ -74,21 +74,21 @@ it(
 );
 
 it('can retrieve children using magic methods', function () {
-    $el = new XMLElement();
+    $el = new Element();
     $el->setTag('Parent');
 
     expect($el->children())->toBeArray()->toBeEmpty();
 
-    $child = new XMLElement();
+    $child = new Element();
     $child->setTag('Child');
 
     $el->addChild($child);
 
-    expect($el->Child)->toBeInstanceOf(XMLElement::class);
+    expect($el->Child)->toBeInstanceOf(Element::class);
 });
 
 it('returns null if there is no matching child element', function () {
-    $el = new XMLElement();
+    $el = new Element();
     $el->setTag('Parent');
 
     expect($el->children())->toBeArray()->toBeEmpty();

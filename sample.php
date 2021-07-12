@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Domattr\XMLReader\XMLReader;
+use Domattr\Exml\Exml;
 
 $xml =
     '<?xml version="1.0" encoding="utf-8"?>
@@ -46,6 +46,6 @@ $xml =
 </soap:Envelope>'
 ;
 
-var_dump(XMLReader::readXML($xml));
+var_dump(Exml::read($xml));
 
 //print_r(simplexml_load_string($xml));

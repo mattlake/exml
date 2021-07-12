@@ -1,8 +1,8 @@
 <?php
 
-namespace Domattr\XMLReader;
+namespace Domattr\Exml;
 
-class XMLContainer extends XMLElement
+class Container extends Element
 {
     private string $version;
     private string $encoding;

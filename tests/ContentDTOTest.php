@@ -1,9 +1,9 @@
 <?php
 
-namespace Domattr\XMLReader\Tests;
+namespace Domattr\Exml\Tests;
 
-use Domattr\XMLReader\ContentDTO;
-use Domattr\XMLReader\ContentDTOFactory;
+use Domattr\Exml\ContentDTO;
+use Domattr\Exml\ContentDTOFactory;
 
 it(
     'can instantiate a DTO with a simple valid string',

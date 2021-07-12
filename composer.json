@@ -1,5 +1,5 @@
 {
-    "name": "domattr/xmlreader",
+    "name": "domattr/exml",
     "description": "A simple XML reader that converts markup to objects",
     "type": "library",
     "license": "MIT",
@@ -13,12 +13,12 @@
     ],
     "autoload": {
       "psr-4": {
-        "Domattr\\XMLReader\\": "src/"
+        "Domattr\\Exml\\": "src/"
       }
     },
     "autoload-dev": {
       "psr-4": {
-        "Domattr\\XMLReader\\Tests\\": "src/"
+        "Domattr\\Exml\\Tests\\": "src/"
       }
     },
     "require": {

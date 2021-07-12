@@ -1,9 +1,9 @@
 <?php
 
-namespace Domattr\XMLReader;
+namespace Domattr\Exml;
 
 
-class XMLAttribute
+class Attribute
 {
     private string $key;
     private string $value;

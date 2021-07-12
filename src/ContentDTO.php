@@ -1,6 +1,6 @@
 <?php
 
-namespace Domattr\XMLReader;
+namespace Domattr\Exml;
 
 class ContentDTO
 {
