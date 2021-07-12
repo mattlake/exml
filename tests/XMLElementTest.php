@@ -1,9 +1,9 @@
 <?php
 
-namespace MattLake\XMLReader\Tests;
+namespace Domattr\XMLReader\Tests;
 
-use MattLake\XMLReader\XMLAttribute;
-use MattLake\XMLReader\XMLElement;
+use Domattr\XMLReader\XMLAttribute;
+use Domattr\XMLReader\XMLElement;
 
 it(
     'can be instantiated',

@@ -1,5 +1,5 @@
 {
-    "name": "mattlake/xmlreader",
+    "name": "domattr/xmlreader",
     "description": "A simple XML reader that converts markup to objects",
     "type": "library",
     "license": "MIT",
@@ -13,12 +13,12 @@
     ],
     "autoload": {
       "psr-4": {
-        "MattLake\\XMLReader\\": "src/"
+        "Domattr\\XMLReader\\": "src/"
       }
     },
     "autoload-dev": {
       "psr-4": {
-        "MattLake\\XMLReader\\Tests\\": "src/"
+        "Domattr\\XMLReader\\Tests\\": "src/"
       }
     },
     "require": {

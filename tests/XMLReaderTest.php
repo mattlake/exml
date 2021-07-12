@@ -1,12 +1,9 @@
 <?php
 
-namespace MattLake\XMLReader\Tests;
+namespace Domattr\XMLReader\Tests;
 
-use MattLake\XMLReader\XMLAttribute;
-use MattLake\XMLReader\XMLElement;
-use MattLake\XMLReader\XMLReader;
-use MattLake\XMLReader\ContentDTO;
-use MattLake\XMLReader\ContentDTOFactory;
+use Domattr\XMLReader\XMLElement;
+use Domattr\XMLReader\XMLReader;
 
 it(
     'returns XML Element for basic $xml',

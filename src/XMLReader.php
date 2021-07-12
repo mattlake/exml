@@ -1,6 +1,6 @@
 <?php
 
-namespace MattLake\XMLReader;
+namespace Domattr\XMLReader;
 
 class XMLReader
 {

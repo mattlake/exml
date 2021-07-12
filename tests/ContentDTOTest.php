@@ -1,9 +1,9 @@
 <?php
 
-namespace MattLake\XMLReader\Tests;
+namespace Domattr\XMLReader\Tests;
 
-use MattLake\XMLReader\ContentDTO;
-use MattLake\XMLReader\ContentDTOFactory;
+use Domattr\XMLReader\ContentDTO;
+use Domattr\XMLReader\ContentDTOFactory;
 
 it(
     'can instantiate a DTO with a simple valid string',
