@@ -24,7 +24,7 @@ class XMLReader
         return self::getInstance()->parseXML($xml);
     }
 
-    private function parseXML(string $xml)
+    private function parseXML(string $xml): XMLElement
     {
         // Create root element
         $rootDTO = ContentDTOFactory::create($xml);

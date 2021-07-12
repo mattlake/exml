@@ -2,8 +2,6 @@
 
 namespace Domattr\XMLReader;
 
-use InvalidArgumentException;
-
 class XMLElement
 {
     private ?string $namespace = null;
@@ -55,7 +53,7 @@ class XMLElement
         return $this->value;
     }
 
-    public function addChild(XMLElement $child)
+    public function addChild(XMLElement $child): XMLElement
     {
         $this->children[$child->tag()] = $child;
         return $child;
