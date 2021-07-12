@@ -2,7 +2,6 @@
 
 namespace Domattr\Exml;
 
-
 class Attribute
 {
     private string $key;
@@ -10,9 +9,11 @@ class Attribute
 
     public function __construct(string $attr)
     {
-        $entry = explode("=", $attr);
-        $this->key = $entry[0];
-        $this->value = trim($entry[1], "\"");
+        if (!empty($attr)) {
+            $entry = explode("=", $attr);
+            $this->key = $entry[0];
+            $this->value = trim($entry[1], "\"");
+        }
     }
 
     public function key(): string
