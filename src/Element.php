@@ -62,7 +62,17 @@ class Element
             throw new InvalidArgumentException('Child does not have tag set');
         }
 
-        $this->children[$child->tag()] = $child;
+        if (!array_key_exists($child->tag(), $this->children())) {
+            $this->children[$child->tag()] = $child;
+            return $child;
+        }
+
+        if (!is_array($this->children[$child->tag()])) {
+            $this->children[$child->tag()] = [$this->children()[$child->tag()]];
+        }
+
+        $this->children[$child->tag()][] = $child;
+
         return $child;
     }
 
