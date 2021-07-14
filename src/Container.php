@@ -41,6 +41,12 @@ class Container extends Element
     {
         $str = '<?xml version="' . $this->version() . '" encoding="' . $this->encoding() . '"?>';
         $str .= $this->openingTag();
+
+        if (strlen($this->value() > 0)) {
+            $str .= $this->value();
+        } else {
+            $str .= $this->parseChildren();
+        }
         $str .= $this->closingTag();
         return $str;
     }

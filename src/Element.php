@@ -62,6 +62,8 @@ class Element
             throw new InvalidArgumentException('Child does not have tag set');
         }
 
+        // TODO if key exists convert to array
+
         $this->children[$child->tag()] = $child;
         return $child;
     }
@@ -132,5 +134,14 @@ class Element
         }
 
         return "</$tag>";
+    }
+
+    protected function parseChildren(): string
+    {
+        foreach ($this->children() as $child) {
+            $child->parseChildren();
+        }
+
+        return $this->value() ?? '';
     }
 }
