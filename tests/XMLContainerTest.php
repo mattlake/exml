@@ -1,24 +1,16 @@
 <?php
 
 use Domattr\Exml\Container;
+use Domattr\Exml\ContentDTOFactory;
 
-it(
-    'can be instantiated with all parameters provided',
-    function () {
-        $dto = \Domattr\Exml\ContentDTOFactory::create('<?xml version="1.0" encoding="utf-8" ?><Response>String</></Response>');
-        expect(new Container($dto))
-            ->toBeInstanceOf(Container::class);
-    }
-);
+it('can be instantiated with all parameters provided')
+    ->expect(new Container(ContentDTOFactory::create('<?xml version="1.0" encoding="utf-8" ?><Response>String</></Response>')))
+    ->toBeInstanceOf(Container::class);
 
-it(
-    'can be instantiated when no parameters are provided',
-    function () {
-        $dto = \Domattr\Exml\ContentDTOFactory::create('<?xml version="1.0" encoding="utf-8" ?><Response>String</Response>');
-        expect(new Container($dto))
-            ->toBeInstanceOf(Container::class);
-    }
-);
+
+it('can be instantiated when no parameters are provided')
+    ->expect(new Container(ContentDTOFactory::create('<?xml version="1.0" encoding="utf-8" ?><Response>String</></Response>')))
+    ->toBeInstanceOf(Container::class);
 
 it(
     'can set and get the version',

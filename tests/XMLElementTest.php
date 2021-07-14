@@ -5,12 +5,7 @@ namespace Domattr\Exml\Tests;
 use Domattr\Exml\Attribute;
 use Domattr\Exml\Element;
 
-it(
-    'can be instantiated',
-    function () {
-        expect(new Element())->toBeInstanceOf(Element::class);
-    }
-);
+it('can be instantiated')->expect(new Element())->toBeInstanceOf(Element::class);
 
 it(
     'can get and set tag',

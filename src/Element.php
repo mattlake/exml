@@ -146,10 +146,33 @@ class Element
 
     protected function parseChildren(): string
     {
+        $str = '';
+
         foreach ($this->children() as $child) {
-            $str = $child->openingTag();
-            $str .= $child->closingTag();
+            if (is_a($child, Element::class)) {
+                $str .= $child->openingTag();
+
+                if (strlen($child->value()) > 0) {
+                    $str .= $child->value();
+                } else {
+                    $child->parseChildren();
+                }
+
+                $str .= $child->closingTag();
+            } else {
+                foreach ($child as $sibling) {
+                    $str .= $sibling->openingTag();
+
+                    if (strlen($sibling->value()) > 0) {
+                        $str .= $sibling->value();
+                    } else {
+                        $sibling->parseChildren();
+                    }
+
+                    $str .= $sibling->closingTag();
+                }
+            }
         }
-        return $str ?? '';
+        return $str;
     }
 }

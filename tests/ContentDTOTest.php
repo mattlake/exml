@@ -70,22 +70,10 @@ it(
     }
 );
 
-it(
-    'returns provided argument if not valid',
-    function () {
-        $xml = 'Name';
-        $dto = ContentDTOFactory::create($xml);
+it('returns provided argument if not valid')
+    ->expect(ContentDTOFactory::create('Name'))
+    ->toBe('Name');
 
-        expect($dto)->toBe('Name');
-    }
-);
-
-it(
-    'returns an array of DTOs if sibling elements are sent',
-    function () {
-        $xml = '<name>Matt</name><age>37</age>';
-        $dto = ContentDTOFactory::create($xml);
-
-        expect($dto)->toMatchArray([ContentDTOFactory::create('<name>Matt</name>'), ContentDTOFactory::create('<age>37</age>')]);
-    }
-);
+it('returns an array of DTOs if sibling elements are sent')
+    ->expect(ContentDTOFactory::create('<name>Matt</name><age>37</age>'))
+    ->toMatchArray([ContentDTOFactory::create('<name>Matt</name>'), ContentDTOFactory::create('<age>37</age>')]);
