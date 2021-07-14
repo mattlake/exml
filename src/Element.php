@@ -128,7 +128,7 @@ class Element
         }
 
         foreach ($this->attributes() as $attr) {
-            $tag .= $attr->key() . '="' . $attr->value() . '"';
+            $tag .= ' ' . $attr->key() . '="' . $attr->value() . '"';
         }
 
         return "<$tag>";
