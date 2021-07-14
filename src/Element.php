@@ -62,9 +62,17 @@ class Element
             throw new InvalidArgumentException('Child does not have tag set');
         }
 
-        // TODO if key exists convert to array
+        if (!array_key_exists($child->tag(), $this->children())) {
+            $this->children[$child->tag()] = $child;
+            return $child;
+        }
 
-        $this->children[$child->tag()] = $child;
+        if (!is_array($this->children[$child->tag()])) {
+            $this->children[$child->tag()] = [$this->children()[$child->tag()]];
+        }
+
+        $this->children[$child->tag()][] = $child;
+
         return $child;
     }
 
@@ -139,9 +147,9 @@ class Element
     protected function parseChildren(): string
     {
         foreach ($this->children() as $child) {
-            $child->parseChildren();
+            $str = $child->openingTag();
+            $str .= $child->closingTag();
         }
-
-        return $this->value() ?? '';
+        return $str ?? '';
     }
 }

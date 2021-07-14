@@ -15,6 +15,7 @@ $xml =
                 <Role>Developer</Role>
             </UserInformation>
             <Url>https://github.com/mattlake/exml</Url>
+            <Url>https://packagist.org/packages/domattr/exml</Url>
             <Status>Public</Status>
         </github:Repo>
     </soap:Body>
