@@ -37,3 +37,17 @@ it(
         expect($container->encoding())->toBe("utf-4");
     }
 );
+
+it('can get and set attributes', function(){
+    $dto = \Domattr\Exml\ContentDTOFactory::create('<?xml version="1.0" encoding="utf-8" ?><Response type="test" active="true">String</Response>');
+    $container = new Container();
+    $container->hydrate($dto);
+    expect(count($container->attributes()))->toBe(2);
+});
+
+it('can create namespace and tag on element during creation', function(){
+    $dto = \Domattr\Exml\ContentDTOFactory::create('<?xml version="1.0" encoding="utf-8" ?><soap:Response>String</soap:Response>');
+    $container = new Container();
+    $container->hydrate($dto);
+    expect($container->namespace())->toBe('soap');
+});

@@ -80,3 +80,10 @@ it(
         expect($exml->Order[1]->tag())->toBe('Order');
     }
 );
+
+it(
+    'throws an invalid argument exception when the xml does not have a root element',
+    function () {
+        Exml::read('<?xml version="1.0" encoding="utf-8" ?><Response></Response><Response></Response>');
+    }
+)->expectException(\InvalidArgumentException::class);

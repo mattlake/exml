@@ -34,7 +34,9 @@ class Container extends Element
         $this->version = $dto->headers()['version'] ?? "1.0";
         $this->encoding = $dto->headers()['encoding'] ?? "utf-8";
 
-        return parent::hydrate($dto);
+        parent::hydrate($dto);
+
+        return $this;
     }
 
     public function toXML(): string

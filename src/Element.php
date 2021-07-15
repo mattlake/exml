@@ -10,7 +10,7 @@ class Element
     private ?string $tag = null;
     private array $attributes = [];
     private array $children = [];
-    private mixed $value = null;
+    private string $value = '';
 
     public function setTag(string $tag): self
     {
@@ -51,7 +51,7 @@ class Element
         return $this;
     }
 
-    public function value(): mixed
+    public function value(): string
     {
         return $this->value;
     }
@@ -155,7 +155,7 @@ class Element
                 if (strlen($child->value()) > 0) {
                     $str .= $child->value();
                 } else {
-                    $child->parseChildren();
+                    $str .= $child->parseChildren();
                 }
 
                 $str .= $child->closingTag();
@@ -166,7 +166,7 @@ class Element
                     if (strlen($sibling->value()) > 0) {
                         $str .= $sibling->value();
                     } else {
-                        $sibling->parseChildren();
+                        $str .= $sibling->parseChildren();
                     }
 
                     $str .= $sibling->closingTag();

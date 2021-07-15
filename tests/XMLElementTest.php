@@ -61,7 +61,7 @@ it(
     'can get and set a value',
     function () {
         $el = new Element();
-        expect($el->value())->toBeNull();
+        expect($el->value())->toBeEmpty();
 
         $el->setValue('Test');
         expect($el->value())->toBe('Test');
@@ -90,3 +90,11 @@ it('returns null if there is no matching child element', function () {
 
     expect($el->Child)->toBeNull();
 });
+
+it('throws an invalid argument exception if a child is added that does not have a tag set', function(){
+    $parent = new Element();
+    expect($parent->children())->toBeArray()->toBeEmpty();
+
+    $child = new Element();
+    $parent->addChild($child);
+})->expectException(\InvalidArgumentException::class);
