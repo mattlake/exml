@@ -13,10 +13,10 @@ This package can be installed via composer/packagist
 
 To read and parse XML we simply use the read() method
 
-```php
+```bash
 $xml = '<?xml version="1.0" encoding="utf-8?><Customer><Name>Matt</Name></Customer';
 
-$obj = Domattr\Exml\Exml::read($xml);
+$obj = \Domattr\Exml\Exml::read($xml);
 ```
 
 
@@ -43,7 +43,7 @@ Below is a simple example of the raw XML and resulting object:
 ```
 
 ```php
-object(Domattr\Exml\Container)#4 (7) {
+object(Domattr\Exml\RootElement)#4 (7) {
   ["version":"Domattr\Exml\Container":private]=>
   string(3) "1.0"
   ["encoding":"Domattr\Exml\Container":private]=>
@@ -212,7 +212,23 @@ $obj = Exml::read($xml);
 
 // Get the username
 $username = $obj->Body->Repo->UserInformation->Name->value();
-
-
 ```
 
+### Create XML Strings from the object
+
+If you wish to create objects through PHP and then convert to an XML string, then we can do so using the following syntax.
+
+```php
+$root = \Domattr\Exml\RootElement::create('Response');
+
+$root->addChildren(
+    [
+        \Domattr\Exml\Element::create('OrderNumber')->setValue('123456'),
+        \Domattr\Exml\Element::create('OrderDate')->setValue('2021-07-15'),
+        
+    ]
+);
+
+$xml = $root->toXML();
+
+```

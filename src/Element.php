@@ -12,7 +12,7 @@ class Element
     private array $children = [];
     private string $value = '';
 
-    public function setTag(string $tag): self
+    public function setTag(string $tag): static
     {
         $this->tag = $tag;
         return $this;
@@ -23,7 +23,7 @@ class Element
         return $this->tag;
     }
 
-    public function setNamespace(string|null $namespace): self
+    public function setNamespace(string|null $namespace): static
     {
         $this->namespace = $namespace;
         return $this;
@@ -34,7 +34,7 @@ class Element
         return $this->namespace;
     }
 
-    public function addAttribute(Attribute $attribute): self
+    public function addAttribute(Attribute $attribute): static
     {
         $this->attributes[] = $attribute;
         return $this;
@@ -45,7 +45,7 @@ class Element
         return $this->attributes;
     }
 
-    public function setValue(mixed $value): self
+    public function setValue(mixed $value): static
     {
         $this->value = $value;
         return $this;
@@ -56,24 +56,30 @@ class Element
         return $this->value;
     }
 
-    public function addChild(Element $child): Element
+    public function addChildren(array $children): static
     {
-        if (is_null($child->tag()) || empty($child->tag())) {
-            throw new InvalidArgumentException('Child does not have tag set');
+        foreach($children as $child) {
+            if (!is_a($child, Element::class)) {
+                throw new InvalidArgumentException('Children must be Domattr\Exml\Element class');
+            }
+
+            if (is_null($child->tag()) || empty($child->tag())) {
+                throw new InvalidArgumentException('Child does not have tag set');
+            }
+
+            if (!array_key_exists($child->tag(), $this->children())) {
+                $this->children[$child->tag()] = $child;
+                continue;
+            }
+
+            if (!is_array($this->children[$child->tag()])) {
+                $this->children[$child->tag()] = [$this->children()[$child->tag()]];
+            }
+
+            $this->children[$child->tag()][] = $child;
         }
 
-        if (!array_key_exists($child->tag(), $this->children())) {
-            $this->children[$child->tag()] = $child;
-            return $child;
-        }
-
-        if (!is_array($this->children[$child->tag()])) {
-            $this->children[$child->tag()] = [$this->children()[$child->tag()]];
-        }
-
-        $this->children[$child->tag()][] = $child;
-
-        return $child;
+        return $this;
     }
 
     public function children(): array
@@ -90,7 +96,7 @@ class Element
         return null;
     }
 
-    public function hydrate(ContentDTO $dto): self
+    public function hydrate(ContentDTO $dto): static
     {
         // Process Tag and Namespace
         $details = $this->processTag($dto->tag());
@@ -174,5 +180,13 @@ class Element
             }
         }
         return $str;
+    }
+
+    public static function create(string $tag): Element
+    {
+        $el = new Element();
+        $el->setTag($el->processTag($tag)['tag']);
+        $el->setNamespace($el->processTag($tag)['namespace'] ?? null);
+        return $el;
     }
 }

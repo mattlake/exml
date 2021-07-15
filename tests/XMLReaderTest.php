@@ -2,7 +2,7 @@
 
 namespace Domattr\Exml\Tests;
 
-use Domattr\Exml\Container;
+use Domattr\Exml\RootElement;
 use Domattr\Exml\Element;
 use Domattr\Exml\Exml;
 
@@ -74,7 +74,7 @@ it(
         $xml = '<?xml version="1.0" encoding="utf-8" ?><Response><Order><Ref>123</Ref></Order><Order><Ref>456</Ref></Order></Response>';
         $exml = Exml::read($xml);
 
-        expect($exml)->toBeInstanceOf(Container::class);
+        expect($exml)->toBeInstanceOf(RootElement::class);
         expect($exml->tag())->toBe('Response');
         expect(count($exml->Order))->toBe(2);
         expect($exml->Order[1]->tag())->toBe('Order');

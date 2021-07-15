@@ -10,7 +10,7 @@ class Attribute
     public function __construct(string $attr)
     {
         if (!empty($attr)) {
-            $entry = explode("=", $attr);
+            $entry = explode('=', $attr);
             $this->key = $entry[0];
             $this->value = trim($entry[1], "\"");
         }

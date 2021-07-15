@@ -46,12 +46,15 @@ it(
 it(
     'can add and retrieve children elements',
     function () {
-        $parent = new Element();
+        $parent = Element::create('Parent');
         expect($parent->children())->toBeArray()->toBeEmpty();
 
-        $child = new Element();
-        $child->setTag('Test');
-        $parent->addChild($child);
+        $parent->addChildren(
+            [
+                Element::create('Test')
+            ]
+        );
+
         expect($parent->children())->toBeArray();
         expect($parent->Test)->toBeInstanceOf(Element::class);
     }
@@ -68,33 +71,36 @@ it(
     }
 );
 
-it('can retrieve children using magic methods', function () {
-    $el = new Element();
-    $el->setTag('Parent');
+it(
+    'returns null if there is no matching child element',
+    function () {
+        $el = new Element();
+        $el->setTag('Parent');
 
-    expect($el->children())->toBeArray()->toBeEmpty();
+        expect($el->children())->toBeArray()->toBeEmpty();
 
-    $child = new Element();
-    $child->setTag('Child');
+        expect($el->Child)->toBeNull();
+    }
+);
 
-    $el->addChild($child);
+it(
+    'throws an invalid argument exception if a child is added that does not have a tag set',
+    function () {
+        $parent = new Element();
+        expect($parent->children())->toBeArray()->toBeEmpty();
 
-    expect($el->Child)->toBeInstanceOf(Element::class);
-});
+        $child = new Element();
+        $parent->addChildren([$child]);
+    }
+)->expectException(\InvalidArgumentException::class);
 
-it('returns null if there is no matching child element', function () {
-    $el = new Element();
-    $el->setTag('Parent');
+it(
+    'can be instantiated using the factory method',
+    function () {
+        $el = Element::create('soap:Envelope');
 
-    expect($el->children())->toBeArray()->toBeEmpty();
-
-    expect($el->Child)->toBeNull();
-});
-
-it('throws an invalid argument exception if a child is added that does not have a tag set', function(){
-    $parent = new Element();
-    expect($parent->children())->toBeArray()->toBeEmpty();
-
-    $child = new Element();
-    $parent->addChild($child);
-})->expectException(\InvalidArgumentException::class);
+        expect($el)->toBeInstanceOf(Element::class);
+        expect($el->tag())->toBe('Envelope');
+        expect($el->namespace())->toBe('soap');
+    }
+);

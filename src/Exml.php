@@ -32,32 +32,18 @@ class Exml
         $rootDTO = ContentDTOFactory::create($xml);
 
         if (!is_a($rootDTO, ContentDTO::class)) {
-            throw new InvalidArgumentException("No single root element found");
+            throw new InvalidArgumentException('No single root element found');
         }
 
         $rootElement = $this->createContainer($rootDTO);
 
-        $content = ContentDTOFactory::create($rootDTO->content());
-
-        if (is_a($content, ContentDTO::class)) {
-            $content = [$content];
-        }
-
-        if (!is_array($content)) {
-            $rootElement->setValue($content);
-        } else {
-            foreach ($content as $dto) {
-                $rootElement->addChild($this->createElement($dto));
-            }
-        }
-
-        return $rootElement;
+        return $this->createContent($rootDTO, $rootElement);
     }
 
     private function createContainer(ContentDTO $dto): Element
     {
         // Create root element
-        $el = new Container();
+        $el = new RootElement();
         $el->hydrate($dto);
 
         return $el;
@@ -68,20 +54,25 @@ class Exml
         $el = new Element();
         $el->hydrate($dto);
 
-        $content = ContentDTOFactory::create($dto->content());
+        return $this->createContent($dto, $el);
+    }
+
+    private function createContent(ContentDTO|array|string $contentDto, Element $element): Element
+    {
+        $content = ContentDTOFactory::create($contentDto->content());
 
         if (is_a($content, ContentDTO::class)) {
             $content = [$content];
         }
 
         if (!is_array($content)) {
-            $el->setValue($content);
+            $element->setValue($content);
         } else {
             foreach ($content as $dto) {
-                $el->addChild($this->createElement($dto));
+                $element->addChildren([$this->createElement($dto)]);
             }
         }
 
-        return $el;
+        return $element;
     }
 }
