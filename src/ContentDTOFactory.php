@@ -4,7 +4,7 @@ namespace Domattr\Exml;
 
 class ContentDTOFactory
 {
-    private const PATTERN = "/<(?'tag'[a-zA-Z\:]+)(?:\w*>|\s+(?'attributes'.*?)\w*\/?>)(?:(?'contents'.*?)<\/\k<tag>>)?/s";
+    private const PATTERN = "/<(?'tag'[a-zA-Z0-9\:]+)(?:\w*>|\s+(?'attributes'.*?)\w*\/?>)(?:(?'contents'.*?)<\/\k<tag>>)?/s";
     private const HEADER_PATTERN = "/^<\?xml version=\"(?'version'\d\.\d)\"(?:\s+encoding=\"(?'encoding'.*)\")?\?>/";
 
     public static function create(string $xml): array|ContentDTO|string
