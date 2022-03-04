@@ -1,7 +1,6 @@
 # Exml
 
 A simple XML parser that converts XML to an object regardless of namespace.
-This package use
 
 ## Installation
 
