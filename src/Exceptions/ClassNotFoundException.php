@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domattr\Exml\Exceptions;
 
-class ClassNotFoundException extends \Exception
+use Exception;
+
+class ClassNotFoundException extends Exception
 {
     protected $message = 'Specified classname could not be found';
 }

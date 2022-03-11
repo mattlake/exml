@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Domattr\Exml\Exml;
@@ -20,7 +22,6 @@ $xml =
         </github:Repo>
     </soap:Body>
 </soap:Envelope>';
-
 
 $obj = Exml::read($xml);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domattr\Exml;
 
 class ContentDTOFactory
@@ -11,17 +13,19 @@ class ContentDTOFactory
     {
         preg_match_all(self::PATTERN, html_entity_decode($xml), $matches);
 
-        if (count($matches[0]) == 0) {
+        if (count($matches[0]) === 0) {
             return $xml;
         }
 
-        if (count($matches[0]) == 1) {
-            preg_match(self::HEADER_PATTERN,$xml,$header_matches);
+        if (count($matches[0]) === 1) {
+            preg_match(self::HEADER_PATTERN, $xml, $header_matches);
             return new ContentDTO($matches['tag'][0], $matches['attributes'][0], $matches['contents'][0], $header_matches);
         }
 
         $dtos = [];
-        for ($i = 0; $i < count($matches[0]); $i++) {
+        $matchesCount = count($matches[0]);
+
+        for ($i = 0; $i < $matchesCount; $i++) {
             $dtos[] = new ContentDTO($matches['tag'][$i], $matches['attributes'][$i], $matches['contents'][$i]);
         }
         return $dtos;

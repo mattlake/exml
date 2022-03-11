@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domattr\Exml;
 
 class Container extends Element
 {
     private string $version;
     private string $encoding;
-
 
     public function __construct(ContentDTO $dto)
     {

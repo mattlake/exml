@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domattr\Exml;
 
 class Attribute
@@ -9,11 +11,16 @@ class Attribute
 
     public function __construct(string $attr)
     {
-        if (!empty($attr)) {
-            $entry = explode("=", $attr);
-            $this->key = $entry[0];
-            $this->value = trim($entry[1], "\"");
+        if (strlen($attr) > 0) {
+            $this->initialise($attr);
         }
+    }
+
+    private function initialise(string $attr): void
+    {
+        $entry = explode("=", $attr);
+        $this->key = $entry[0];
+        $this->value = trim($entry[1], "\"");
     }
 
     public function key(): string

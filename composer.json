@@ -1,35 +1,39 @@
 {
-    "name": "domattr/exml",
-    "description": "A simple XML reader that converts markup to objects",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-      {
-        "role": "Developer",
-        "name": "Matthew Lake",
-        "email": "dev@matthewlake.co.uk",
-        "homepage": "https://github.com/mattlake/exml"
-      }
-    ],
-    "autoload": {
-      "psr-4": {
-        "Domattr\\Exml\\": "src/"
-      }
-    },
-    "autoload-dev": {
-      "psr-4": {
-        "Domattr\\Exml\\Tests\\": "tests/"
-      }
-    },
-    "require": {
-      "php": "^8"
-    },
-    "require-dev": {
-      "pestphp/pest": "^1.8",
-        "vimeo/psalm": "^4.8"
-    },
-    "prefer-stable": true,
-    "config": {
-      "optimize-autoloader": true
+  "name": "domattr/exml",
+  "description": "A simple XML reader that converts markup to objects",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "role": "Developer",
+      "name": "Matthew Lake",
+      "email": "dev@matthewlake.co.uk",
+      "homepage": "https://github.com/mattlake/exml"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Domattr\\Exml\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Domattr\\Exml\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=8.0"
+  },
+  "require-dev": {
+    "pestphp/pest": "^1.8",
+    "vimeo/psalm": "^4.8",
+    "nunomaduro/phpinsights": "^2.1"
+  },
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "8.1"
     }
   }
+}

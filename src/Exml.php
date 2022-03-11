@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domattr\Exml;
 
 use Domattr\Exml\Exceptions\ClassNotFoundException;
-use InvalidArgumentException;
+use Domattr\Exml\Exceptions\NoRootElementFoundException;
 
 class Exml
 {
@@ -13,7 +15,6 @@ class Exml
     {
     }
 
-
     public static function read(string $xml): Exml
     {
         $instance = new Exml($xml);
@@ -21,24 +22,23 @@ class Exml
         return $instance;
     }
 
-    public function asElement():Element {
+    public function asElement(): Element
+    {
         return $this->parsed;
     }
 
-    public function into(string $class):object
+    public function into(string $class): object
     {
-        if(!class_exists($class)) {
+        if (!class_exists($class)) {
             throw new ClassNotFoundException();
         }
 
         $deserialisedClass = new $class();
 
-        foreach($this->parsed->children() as $k => $v) {
-
-            if(property_exists($deserialisedClass, $k)) {
+        foreach ($this->parsed->children() as $k => $v) {
+            if (property_exists($deserialisedClass, $k)) {
                 $deserialisedClass->$k = $v->value();
             }
-
         }
         return $deserialisedClass;
     }
@@ -48,8 +48,8 @@ class Exml
         // Create root element
         $rootDTO = ContentDTOFactory::create($xml);
 
-        if(!is_a($rootDTO,ContentDTO::class)) {
-            throw new InvalidArgumentException("No single root element found");
+        if (!is_a($rootDTO, ContentDTO::class)) {
+            throw new NoRootElementFoundException();
         }
 
         $rootElement = $this->createContainer($rootDTO);

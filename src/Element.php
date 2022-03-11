@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domattr\Exml;
 
-use InvalidArgumentException;
+use Domattr\Exml\Exceptions\NoTagSetException;
 
 class Element
 {
@@ -58,8 +60,8 @@ class Element
 
     public function addChild(Element $child): Element
     {
-        if (is_null($child->tag()) || empty($child->tag())) {
-            throw new InvalidArgumentException('Child does not have tag set');
+        if (is_null($child->tag()) || strlen($child->tag()) === 0) {
+            throw new NoTagSetException();
         }
 
         if (!array_key_exists($child->tag(), $this->children())) {
@@ -81,7 +83,7 @@ class Element
         return $this->children;
     }
 
-    public function __get(string $key)
+    public function __get(string $key): mixed
     {
         if (array_key_exists($key, $this->children)) {
             return $this->children[$key];
@@ -98,7 +100,7 @@ class Element
         $this->setNamespace($details['namespace']);
 
         // Add Attributes
-        if (!empty($dto->attributes())) {
+        if (strlen($dto->attributes()) > 0) {
             foreach (explode(' ', $dto->attributes()) as $attr) {
                 $this->addAttribute(new Attribute($attr));
             }

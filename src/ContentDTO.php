@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domattr\Exml;
 
 class ContentDTO
@@ -27,7 +29,7 @@ class ContentDTO
         return $this->content;
     }
 
-    public function headers():array
+    public function headers(): array
     {
         return $this->headers;
     }
