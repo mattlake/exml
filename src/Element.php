@@ -83,6 +83,11 @@ class Element
         return $this->children;
     }
 
+    public function hasChildren(): bool
+    {
+        return count($this->children) > 0;
+    }
+
     public function __get(string $key): mixed
     {
         if (array_key_exists($key, $this->children)) {

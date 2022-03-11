@@ -6,6 +6,8 @@ namespace Domattr\Exml;
 
 use Domattr\Exml\Exceptions\ClassNotFoundException;
 use Domattr\Exml\Exceptions\NoRootElementFoundException;
+use ReflectionClass;
+use ReflectionException;
 
 class Exml
 {
@@ -29,18 +31,41 @@ class Exml
 
     public function into(string $class): object
     {
-        if (!class_exists($class)) {
+        try {
+            $reflectedClass = new ReflectionClass($class);
+        } catch (ReflectionException) {
             throw new ClassNotFoundException();
         }
 
-        $deserialisedClass = new $class();
+        $classProperties = [];
+        foreach ($reflectedClass->getProperties() as $prop) {
+            $classProperties[$prop->getName()] = $prop;
+        }
+
+        $modelProps = [];
 
         foreach ($this->parsed->children() as $k => $v) {
-            if (property_exists($deserialisedClass, $k)) {
-                $deserialisedClass->$k = $v->value();
+
+//            var_dump($class,$k,$v);
+
+            if (array_key_exists($k, $classProperties)) {
+                if (!in_array($classProperties[$k]->getType()->getName(), ['boolean', 'integer', 'float', 'string'])) {
+                    var_dump($v);
+//                    var_dump($classProperties[$k]->getType()->getName());
+                    $modelProps[$k] = $v->into($classProperties[$k]->getType()->getName());
+//                    var_dump($this->into($classProperties[$k]->getType()->getName()));
+
+                } else {
+                    $modelProps[$k] = $v->value();
+                }
             }
         }
-        return $deserialisedClass;
+
+        $newClass = new $class();
+        foreach ($modelProps as $prop => $data) {
+            $newClass->$prop = $data;
+        }
+        return $newClass;
     }
 
     private function parseXML(string $xml): void
