@@ -45,16 +45,9 @@ class Exml
         $modelProps = [];
 
         foreach ($this->parsed->children() as $k => $v) {
-
-//            var_dump($class,$k,$v);
-
             if (array_key_exists($k, $classProperties)) {
                 if (!in_array($classProperties[$k]->getType()->getName(), ['boolean', 'integer', 'float', 'string'])) {
-                    var_dump($v);
-//                    var_dump($classProperties[$k]->getType()->getName());
-                    $modelProps[$k] = $v->into($classProperties[$k]->getType()->getName());
-//                    var_dump($this->into($classProperties[$k]->getType()->getName()));
-
+                    $modelProps[$k] = $this->deserialise($classProperties[$k]->getType()->getName(), $v->children());
                 } else {
                     $modelProps[$k] = $v->value();
                 }
@@ -62,6 +55,36 @@ class Exml
         }
 
         $newClass = new $class();
+        foreach ($modelProps as $prop => $data) {
+            $newClass->$prop = $data;
+        }
+        return $newClass;
+    }
+
+    private function deserialise(string $className, array $children):Object {
+        try {
+            $reflectedClass = new ReflectionClass($className);
+        } catch (ReflectionException) {
+            throw new ClassNotFoundException();
+        }
+
+        $classProperties = [];
+        foreach ($reflectedClass->getProperties() as $prop) {
+            $classProperties[$prop->getName()] = $prop;
+        }
+
+        $modelProps = [];
+        foreach ($children as $k => $v) {
+            if (array_key_exists($k, $classProperties)) {
+                if (!in_array($classProperties[$k]->getType()->getName(), ['boolean', 'integer', 'float', 'string'])) {
+                    $modelProps[$k] = $this->deserialise($classProperties[$k]->getType()->getName(), $v->children());
+                } else {
+                    $modelProps[$k] = $v->value();
+                }
+            }
+        }
+
+        $newClass = new $className();
         foreach ($modelProps as $prop => $data) {
             $newClass->$prop = $data;
         }

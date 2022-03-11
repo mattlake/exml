@@ -17,7 +17,7 @@ XML;
 
     expect($user->FirstName)->toBe('Matthew');
     expect($user->LastName)->toBe('Lake');
-})->skip();
+});
 
 it('Returns an error if the class cannotbe found', function () {
     $xml = <<<XML
@@ -29,7 +29,7 @@ it('Returns an error if the class cannotbe found', function () {
 XML;
 
     Exml::read($xml)->into(GuffClass::class);
-})->throws(ClassNotFoundException::class)->skip();
+})->throws(ClassNotFoundException::class);
 
 it('should ignore any elements that are not in the model', function () {
     $xml = <<<XML
@@ -45,7 +45,7 @@ XML;
 
     expect($user->FirstName)->toBe('Matthew');
     expect($user->LastName)->toBe('Lake');
-})->skip();
+});
 
 it('can populate properties that are also classes', function () {
     $xml = <<<XML
