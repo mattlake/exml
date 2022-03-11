@@ -10,7 +10,7 @@ it(
     'returns XML Element for basic $xml',
     function () {
         $xml = '<Name>Matt</Name>';
-        $obj = Exml::read($xml);
+        $obj = Exml::read($xml)->asElement();
 
         expect($obj)->toBeInstanceOf(Element::class);
         expect($obj->tag())->toBe('Name');
@@ -22,7 +22,7 @@ it(
     'returns XML element with 1 child element',
     function () {
         $xml = '<Customer><Name>Matt</Name></Customer>';
-        $obj = Exml::read($xml);
+        $obj = Exml::read($xml)->asElement();
 
         expect($obj)->toBeInstanceOf(Element::class);
         expect($obj->tag())->toBe('Customer');
@@ -37,7 +37,7 @@ it(
     'returns XML element with multiple child element',
     function () {
         $xml = '<Customer><Name>Matt</Name><Age>37</Age></Customer>';
-        $obj = Exml::read($xml);
+        $obj = Exml::read($xml)->asElement();
 
         expect($obj)->toBeInstanceOf(Element::class);
         expect($obj->tag())->toBe('Customer');
@@ -55,7 +55,7 @@ it(
     'returns XML element with 2 tiers of child elements',
     function () {
         $xml = '<Account><Customer><Name>Matt</Name></Customer></Account>';
-        $obj = Exml::read($xml);
+        $obj = Exml::read($xml)->asElement();
 
         expect($obj)->toBeInstanceOf(Element::class);
         expect($obj->tag())->toBe('Account');
@@ -72,7 +72,7 @@ it(
     'can create child sibling elements with the same name by converting them to an array',
     function () {
         $xml = '<?xml version="1.0" encoding="utf-8" ?><Response><Order><Ref>123</Ref></Order><Order><Ref>456</Ref></Order></Response>';
-        $exml = Exml::read($xml);
+        $exml = Exml::read($xml)->asElement();
 
         expect($exml)->toBeInstanceOf(Container::class);
         expect($exml->tag())->toBe('Response');

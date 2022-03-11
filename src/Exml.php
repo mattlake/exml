@@ -2,31 +2,48 @@
 
 namespace Domattr\Exml;
 
+use Domattr\Exml\Exceptions\ClassNotFoundException;
 use InvalidArgumentException;
 
 class Exml
 {
-    private static ?Exml $instance;
+    private ?Element $parsed;
 
-    private function __construct()
+    private function __construct(public string $xml)
     {
     }
 
-    private static function getInstance(): Exml
+
+    public static function read(string $xml): Exml
     {
-        if (!isset(self::$instance)) {
-            self::$instance = new Exml();
+        $instance = new Exml($xml);
+        $instance->parseXML($xml);
+        return $instance;
+    }
+
+    public function asElement():Element {
+        return $this->parsed;
+    }
+
+    public function into(string $class):object
+    {
+        if(!class_exists($class)) {
+            throw new ClassNotFoundException();
         }
 
-        return self::$instance;
+        $deserialisedClass = new $class();
+
+        foreach($this->parsed->children() as $k => $v) {
+
+            if(property_exists($deserialisedClass, $k)) {
+                $deserialisedClass->$k = $v->value();
+            }
+
+        }
+        return $deserialisedClass;
     }
 
-    public static function read(string $xml): Element
-    {
-        return self::getInstance()->parseXML($xml);
-    }
-
-    private function parseXML(string $xml): Element
+    private function parseXML(string $xml): void
     {
         // Create root element
         $rootDTO = ContentDTOFactory::create($xml);
@@ -51,7 +68,7 @@ class Exml
             }
         }
 
-        return $rootElement;
+        $this->parsed = $rootElement;
     }
 
     private function createContainer(ContentDTO $dto): Element

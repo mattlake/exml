@@ -15,11 +15,11 @@ To read and parse XML we simply use the read() method
 ```php
 $xml = '<?xml version="1.0" encoding="utf-8?><Customer><Name>Matt</Name></Customer';
 
-$obj = Domattr\Exml\Exml::read($xml);
+$obj = Domattr\Exml\Exml::read($xml)->asElement();
 ```
 
 
-### Using the Object
+### Creating the Object
 
 The returned object will contain all data, attributes & children.
 Below is a simple example of the raw XML and resulting object:
@@ -207,11 +207,36 @@ object(Domattr\Exml\Container)#4 (7) {
 
 The data within the object can be accessed like so:
 ```php
-$obj = Exml::read($xml);
+$obj = Exml::read($xml)->asElement();
 
 // Get the username
 $username = $obj->Body->Repo->UserInformation->Name->value();
 
 
 ```
+### Deserialising into Classes
 
+This feature only currently works for single level public properties and should still be considered a work in progress.
+
+XML input can be serialised straight into a PHP class as seen below.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<User>
+ <FirstName>Matthew</FirstName>
+ <LastName>Lake</LastName>
+</User>
+```
+
+```php
+
+class SimpleUser {
+    public string $FirstName;
+    public string $LastName;
+}
+
+$user = Exml::read($xml)->into(SimpleUser::class);
+
+   // $user->FirstName => 'Matthew
+   // $user->LastName => 'Lake'
+```

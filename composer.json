@@ -18,11 +18,11 @@
     },
     "autoload-dev": {
       "psr-4": {
-        "Domattr\\Exml\\Tests\\": "src/"
+        "Domattr\\Exml\\Tests\\": "tests/"
       }
     },
     "require": {
-      "php": "^8.0"
+      "php": "^8"
     },
     "require-dev": {
       "pestphp/pest": "^1.8",
