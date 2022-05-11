@@ -42,9 +42,8 @@ it(
 
         $el->addAttribute(new Attribute('scope="Test"'));
         expect($el->attributes())->toBeArray();
-        expect($el->attributes()[0])->toBeInstanceOf(Attribute::class);
-        expect($el->attributes()[0]->key())->toBe('scope');
-        expect($el->attributes()[0]->value())->toBe('Test');
+        expect($el->attributes()['scope'])->toBeInstanceOf(Attribute::class);
+        expect($el->attributes()['scope']->value())->toBe('Test');
     }
 );
 

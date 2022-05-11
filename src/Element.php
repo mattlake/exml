@@ -36,8 +36,18 @@ class Element
 
     public function addAttribute(Attribute $attribute): self
     {
-        $this->attributes[] = $attribute;
+        $this->attributes[$attribute->key()] = $attribute;
         return $this;
+    }
+
+    public function hasAttribute(string $key): bool
+    {
+        return array_key_exists($key, $this->attributes);
+    }
+
+    public function getAttribute(string $key): string
+    {
+        return $this->attributes[$key];
     }
 
     public function attributes(): array
@@ -62,12 +72,12 @@ class Element
             throw new InvalidArgumentException('Child does not have tag set');
         }
 
-        if (!array_key_exists($child->tag(), $this->children())) {
+        if (! array_key_exists($child->tag(), $this->children())) {
             $this->children[$child->tag()] = $child;
             return $child;
         }
 
-        if (!is_array($this->children[$child->tag()])) {
+        if (! is_array($this->children[$child->tag()])) {
             $this->children[$child->tag()] = [$this->children()[$child->tag()]];
         }
 
@@ -98,7 +108,7 @@ class Element
         $this->setNamespace($details['namespace']);
 
         // Add Attributes
-        if (!empty($dto->attributes())) {
+        if (! empty($dto->attributes())) {
             foreach (explode(' ', $dto->attributes()) as $attr) {
                 $this->addAttribute(new Attribute($attr));
             }
